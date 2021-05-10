@@ -13,11 +13,6 @@ import java.util.*;
 
 class Welcome {
 
-    // clears the terminal
-    private  static void clearScreen() {  
-        System.out.print(AnsiColours.CLEAR);  
-        System.out.flush();  
-    }  
 
     // Displays the heading of our application using BufferedImage
     private static void drawHeading() {
@@ -32,12 +27,8 @@ class Welcome {
         // turning on antialias for a nicer look
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-
         drawLine();
-        
         graphics2D.drawString("ADOPT -A- PET !", 10, 24);
-
         // Printing the image
         for(int y = 0; y < 32; y++) {
             StringBuilder sb = new StringBuilder();
@@ -55,7 +46,7 @@ class Welcome {
     
     // Display the pets
     public static void browse() throws IOException{
-        clearScreen();
+        Util.clearScreen();
         drawHeading();
 
         System.out.println("Which pet would you like to browse first?");
@@ -66,16 +57,18 @@ class Welcome {
         System.out.println("x. Exit");
         System.out.println("Enter choice: ");
         
-        String choice = takeInput().toLowerCase();
-        if (equal(choice, "dogs", "1", "1.", "d")) {
+        String choice = Util.handleInput().toLowerCase();
+        if (Util.equal(choice, "dogs", "1", "1.", "d")) {
+            System.out.println("Great choice! Here is the list of available dogs:");
+            printDogs();
             
-        } else if (equal(choice, "cats", "2", "2.", "c")) {
+        } else if (Util.equal(choice, "cats", "2", "2.", "c")) {
             
-        } else if(equal(choice, "login", "3", "3.", "l")) {
+        } else if(Util.equal(choice, "login", "3", "3.", "l")) {
             
-        } else if(equal(choice, "register", "4", "4.", "r")) {
+        } else if(Util.equal(choice, "register", "4", "4.", "r")) {
             
-        } else if (equal(choice, "exit", "x", "x.", "quit", "close")) {
+        } else if (Util.equal(choice, "exit", "x", "x.", "quit", "close")) {
             exit();
         } 
         else {
@@ -95,25 +88,26 @@ class Welcome {
         System.exit(0);
     }
 
-    // checks if the first passed string matches with the other passed strings
-    private static boolean equal(String first, String ...strings) {
-        // using a foreach loop to check the variable number of passed strings 
-        for(String s : strings) {
-            if (first.equals(s)) return true;
+    public static void printDogs() throws IOException{
+        ArrayList<Pet> pets = new ArrayList<Pet>();
+        FileInputStream in = null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File("dogs.txt")));
+            StringBuffer sb = new StringBuffer();
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] words = line.split(" ");
+                pets.add(new Pet(words[0], Integer.parseInt(words[1]),
+                                 Integer.parseInt(words[2]), words[3]));
+            }
+            
+        } catch(Exception e) {
+            throw new IllegalArgumentException("Unable to open file dogs.txt");
         }
-        return false;
-    }
-    
 
-    // take input from user, returns the string
-    private static String takeInput() throws IOException{
-        System.out.print(AnsiColours.RED);
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String inp = br.readLine();
-        inp.trim();
-        System.out.print(AnsiColours.WHITE);        
-        return inp;
-
+        for(Pet p : pets) {
+            p.display();
+        }
     }
 
     private static void drawLine() {
@@ -125,7 +119,7 @@ class Welcome {
         System.out.print(AnsiColours.WHITE);
     }
     public static void main(String[] args) throws IOException{
-        clearScreen();
+        Util.clearScreen();
         drawHeading();
         browse();
     }    
