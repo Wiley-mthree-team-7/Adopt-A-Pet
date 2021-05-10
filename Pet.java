@@ -34,7 +34,10 @@ class Pet {
             String dogImage = this.breed.toLowerCase() + ".jpeg";
             Picture dog = new Picture(dogImage);
             dog.show();
-        } else {
+        } else if (Util.equal(inp, "n", "N", "NO")) {
+            return;
+        }
+        else {
             Welcome.browse();
         }
     }
