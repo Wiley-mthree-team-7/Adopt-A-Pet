@@ -1,7 +1,3 @@
-/**
- * 
- */
-package petsInfo;
 
 /**
  * @author AnannaBhattacharya

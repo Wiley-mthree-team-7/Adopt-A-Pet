@@ -102,6 +102,7 @@ class Welcome {
             }
             
         } catch(Exception e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("Unable to open file dogs.txt");
         }
 
