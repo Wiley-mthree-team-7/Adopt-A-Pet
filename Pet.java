@@ -31,19 +31,14 @@ class Pet {
         System.out.println(AnsiColours.RED + "Press Y to display picture, N to cancel");
         String inp = Util.handleInput().toLowerCase();
         if (Util.equal(inp, "yes", "YES", "y", "Y")) {
-            String dogImage = this.breed.toLowerCase() + ".jpeg";
-            Picture dog = new Picture(dogImage);
-            dog.show();
+            String petImage = this.breed.toLowerCase() + ".jpeg";
+            Picture pet = new Picture(petImage);
+            pet.show();
         } else if (Util.equal(inp, "n", "N", "NO")) {
             return;
         }
         else {
             Welcome.browse();
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        Pet p = new Pet("Brutus", 1, 1000, "Golden Retreiver");
-        p.display();
-    }    
+    }  
 }

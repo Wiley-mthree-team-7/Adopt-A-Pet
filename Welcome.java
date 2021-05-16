@@ -60,10 +60,12 @@ class Welcome {
         String choice = Util.handleInput().toLowerCase();
         if (Util.equal(choice, "dogs", "1", "1.", "d")) {
             System.out.println("Great choice! Here is the list of available dogs:");
-            printDogs();
-            
+            printPets("dogs.txt");
+            browse();
         } else if (Util.equal(choice, "cats", "2", "2.", "c")) {
-            
+            System.out.println("Cat masterrace! Here is the list of available cats:");
+            printPets("cats.txt");
+            browse();
         } else if(Util.equal(choice, "login", "3", "3.", "l")) {
             
         } else if(Util.equal(choice, "register", "4", "4.", "r")) {
@@ -88,11 +90,11 @@ class Welcome {
         System.exit(0);
     }
 
-    public static void printDogs() throws IOException{
+    public static void printPets(String petInfo) throws IOException{
         ArrayList<Pet> pets = new ArrayList<Pet>();
         FileInputStream in = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File("dogs.txt")));
+            BufferedReader br = new BufferedReader(new FileReader(new File(petInfo)));
             StringBuffer sb = new StringBuffer();
             String line;
             while((line = br.readLine()) != null) {
@@ -103,7 +105,7 @@ class Welcome {
             
         } catch(Exception e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("Unable to open file dogs.txt");
+            throw new IllegalArgumentException("Unable to open file " + petInfo);
         }
 
         for(Pet p : pets) {

@@ -1,0 +1,5 @@
+Bella 1 2530 Siamese
+Fawkes 0 3500 British_Shorthair
+Boots 2 7850 American_Shorthair
+Luna 2 7850 Persian
+Mrs_Norris 3 20000 Maine_Coon
