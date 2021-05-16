@@ -45,7 +45,7 @@ class Welcome {
 
     
     // Display the pets
-    public static void browse() throws IOException{
+    public static void browse() throws Exception{
         Util.clearScreen();
         drawHeading();
 
@@ -90,7 +90,7 @@ class Welcome {
         System.exit(0);
     }
 
-    public static void printPets(String petInfo) throws IOException{
+    public static void printPets(String petInfo) throws Exception{
         ArrayList<Pet> pets = new ArrayList<Pet>();
         FileInputStream in = null;
         try {
@@ -121,7 +121,7 @@ class Welcome {
         System.out.println();
         System.out.print(AnsiColours.WHITE);
     }
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws Exception{
         Util.clearScreen();
         drawHeading();
         browse();
