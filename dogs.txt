@@ -3,4 +3,3 @@ Brutus 1 1000 Golden_Retriever
 Bolt 0 2000 Dalmatian
 Bentley 0 4000 German_Shepherd
 Buddy 3 500 Great_Dane
-
