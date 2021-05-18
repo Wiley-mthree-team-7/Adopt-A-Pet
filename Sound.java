@@ -19,7 +19,6 @@ class Sound {
                 clip = AudioSystem.getClip();
                 clip.open(audioInput);
 
-
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                 e.printStackTrace();
             }
