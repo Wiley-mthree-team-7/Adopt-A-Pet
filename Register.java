@@ -3,7 +3,7 @@ import java.io.*;
 public class Register {
 	
 	// encrypting password before we store it in the database
-	public String encrypt(String text, int shiftKey)
+	public static String encrypt(String text, int shiftKey)
     {
         String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
         String Digit = "0123456789";
@@ -44,33 +44,33 @@ public class Register {
     }
   
 	//function which reads data from user and store them in database
-	public void newUser()
+	public static User newUser()
 	{
 		try
             {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 BufferedWriter bw = new BufferedWriter(new FileWriter("UsernamePassword.txt",true));
 			 
-                System.out.print("Enter your name: ");
-                String name = br.readLine();
+                System.out.print(AnsiColours.BLUE + "Enter your name: ");
+                String name = Util.handleInput();
 			
-                System.out.print("Enter your location: ");
-                String location = br.readLine();
+                System.out.print(AnsiColours.BLUE + "Enter your location: ");
+                String location = Util.handleInput();
 			 
-                System.out.print("Enter your age : ");
-                int age = Integer.parseInt(br.readLine());
+                System.out.print(AnsiColours.BLUE + "Enter your age : ");
+                int age = Integer.parseInt(Util.handleInput());
 			 
-                System.out.print("Enter your phone number: ");
-                long phNo = Long.parseLong(br.readLine());
+                System.out.print(AnsiColours.BLUE + "Enter your phone number: ");
+                long phNo = Long.parseLong(Util.handleInput());
 			 
-                System.out.print("Enter your salary: ");
-                double salary = Double.parseDouble(br.readLine());
+                System.out.print(AnsiColours.BLUE + "Enter your salary: ");
+                double salary = Double.parseDouble(Util.handleInput());
 			 
-                System.out.print("Enter user name: ");
-                String username = br.readLine();
+                System.out.print(AnsiColours.BLUE + "Enter user name: ");
+                String username = Util.handleInput();
 			 
-                System.out.print("Enter a password: ");
-                String password = encrypt(br.readLine(), 3);
+                System.out.print(AnsiColours.BLUE + "Enter a password: ");
+                String password = encrypt(Util.handleInput(), 3);
 			 
                 User newUser =  new User(name,location, age, phNo, salary, username, password);
 			 
@@ -79,12 +79,13 @@ public class Register {
                 bw.write(" ");
                 bw.write(newUser.getPassword());
                 bw.write("\n");
-                br.close();
                 bw.close();
+                return newUser;
             }
 		catch(Exception e)
             {
                 e.printStackTrace();
+                return null;
             }
 	}
 }

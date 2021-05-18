@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 public class Login {
     //To validate whether a user is already present in the database or not. If yes, go ahead with login, otherwise writes 
     //a new record for the user.
-    public boolean validateUser(User user){
+    public static boolean validateUser(User user){
         try {
             BufferedReader br = new BufferedReader(new FileReader("UsernamePassword.txt"));
             String line;
@@ -22,20 +22,13 @@ public class Login {
             //check if the combination of username & password already exists.
             while((line = br.readLine())!=null){
                 String[] loginDetails = line.split(" ");
-                if(loginDetails[0].equals(user.getUsername()) && loginDetails[1].equals(user.getPassword())){
+                if(loginDetails[0].equals(user.getUsername()) && loginDetails[1].equals(Register.encrypt(user.getPassword(), 3))) {
                     flag = 1;
                     return true;
                 }
             }
             br.close();
-            //if the combination is of a new user, append login details to file for future reference.
-            if(flag == 0){
-                BufferedWriter bw = new BufferedWriter(new FileWriter("UsernamePassword.txt"));
-                bw.write(user.getUsername());
-                bw.write(" ");
-                bw.write(user.getPassword());
-                bw.close();
-            }
+            return false;
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
@@ -45,6 +38,16 @@ public class Login {
         }
         
         return false;
+    }
+
+    public static String login() {
+        System.out.println(AnsiColours.BLUE + "Enter username: ");
+        String username = Util.handleInput();
+        System.out.println(AnsiColours.BLUE + "Enter password: ");
+        String password = Util.handleInput();
+        User u = new User("", "", 0, 123, 0, username, password);
+        if (validateUser(u)) return username;
+        return null;
     }
 
 }

@@ -67,9 +67,18 @@ class Welcome {
             printPets("cats.txt");
             browse();
         } else if(Util.equal(choice, "login", "3", "3.", "l")) {
-            
+            String u = Login.login();
+            if (u != null) System.out.println(AnsiColours.GREEN + "Welcome back, " + u + "!");
+            else System.out.println(AnsiColours.RED + "Unable to login :(");
+            Thread.sleep(4000);
+            browse();
         } else if(Util.equal(choice, "register", "4", "4.", "r")) {
-            
+            User u = Register.newUser();
+            if (u != null) 
+                System.out.println(AnsiColours.GREEN+ "User " + u.getName() + " successfully registered!");
+            else System.out.println("Couldn't register user");
+            Thread.sleep(4000);
+            browse();
         } else if (Util.equal(choice, "exit", "x", "x.", "quit", "close")) {
             exit();
         } 
