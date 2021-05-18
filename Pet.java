@@ -35,7 +35,7 @@ class Pet {
             inp = Util.handleInput().toLowerCase();
             if (Util.equal(inp, "yes", "YES", "y", "Y")) {
                 String petImage = this.breed.toLowerCase() + ".jpeg";
-                Picture pet = new Picture(petImage);
+                Picture pet = new Picture("pet_pics/" + petImage);
                 pet.show();
                 break;
             } else if (Util.equal(inp, "n", "N", "NO")) {

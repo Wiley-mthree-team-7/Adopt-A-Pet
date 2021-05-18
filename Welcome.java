@@ -94,7 +94,7 @@ class Welcome {
         ArrayList<Pet> pets = new ArrayList<Pet>();
         FileInputStream in = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(petInfo)));
+            BufferedReader br = new BufferedReader(new FileReader(new File("./pet_info/" + petInfo)));
             StringBuffer sb = new StringBuffer();
             String line;
             while((line = br.readLine()) != null) {
