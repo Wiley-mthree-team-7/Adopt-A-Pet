@@ -49,6 +49,7 @@ class Welcome {
         Util.clearScreen();
         drawHeading();
 
+        System.out.print(AnsiColours.CYAN);
         System.out.println("Which pet would you like to browse first?");
         System.out.println("1. Dogs");
         System.out.println("2. Cats");
