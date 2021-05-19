@@ -60,11 +60,13 @@ class Welcome {
         
         String choice = Util.handleInput().toLowerCase();
         if (Util.equal(choice, "dogs", "1", "1.", "d")) {
-            System.out.println("Great choice! Here is the list of available dogs:");
+            System.out.println(AnsiColours.GREEN + "Great choice! Here is the list of available dogs:");
+            Thread.sleep(2500);
             printPets("dogs.txt");
             browse();
         } else if (Util.equal(choice, "cats", "2", "2.", "c")) {
-            System.out.println("Cat masterrace! Here is the list of available cats:");
+            System.out.println(AnsiColours.GREEN +"Cat masterrace! Here is the list of available cats:");
+            Thread.sleep(2500);            
             printPets("cats.txt");
             browse();
         } else if(Util.equal(choice, "login", "3", "3.", "l")) {
@@ -86,7 +88,7 @@ class Welcome {
         else {
             System.out.println("Um.... I don't understand that choice. Please try again.");
             try {
-                Thread.sleep(2000);
+                Thread.sleep(2500);
             } catch(Exception e) {
             }
             browse();
