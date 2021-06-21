@@ -4,6 +4,7 @@
  */
 
 import java.util.*;
+import java.sql.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -14,33 +15,30 @@ import java.io.FileNotFoundException;
 public class Login {
     //To validate whether a user is already present in the database or not. If yes, go ahead with login, otherwise writes 
     //a new record for the user.
-    public static boolean validateUser(User user){
+    public static boolean validateUser(User user) throws SQLException{
         try {
-            BufferedReader br = new BufferedReader(new FileReader("UsernamePassword.txt"));
-            String line;
-            int flag = 0;
-            //check if the combination of username & password already exists.
-            while((line = br.readLine())!=null){
-                String[] loginDetails = line.split(" ");
-                if(loginDetails[0].equals(user.getUsername()) && loginDetails[1].equals(Register.encrypt(user.getPassword(), 3))) {
-                    flag = 1;
-                    return true;
-                }
+            //BufferedReader br = new BufferedReader(new FileReader("UsernamePassword.txt"));
+            //String line;
+            int user_id;
+
+            ResultSet rs = UserJDBC.getUser(user.getUsername(), user.getPassword());
+            if (!rs.next()) {
+                System.out.println("here");
+                return false;
+            } else {
+                user_id = rs.getInt(1);
+                User.setUserId(user_id);
+                return true;
             }
-            br.close();
+        }
+        catch(Exception e)  
+        {
+        	e.printStackTrace();
             return false;
         }
-        catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        
-        return false;
     }
 
-    public static String login() {
+    public static String login() throws SQLException {
         System.out.println(AnsiColours.BLUE + "Enter username: ");
         String username = Util.handleInput();
         System.out.println(AnsiColours.BLUE + "Enter password: ");

@@ -54,7 +54,10 @@ class Welcome {
         System.out.println("1. Dogs");
         System.out.println("2. Cats");
         System.out.println("3. Login");
-        System.out.println("4. Register");        
+        System.out.println("4. Register");
+        if (User.loggedIn) {
+            System.out.println("5. Show Transactions");
+        }
         System.out.println("x. Exit");
         System.out.println("Enter choice: ");
         
@@ -84,7 +87,17 @@ class Welcome {
             browse();
         } else if (Util.equal(choice, "exit", "x", "x.", "quit", "close")) {
             exit();
-        } 
+        }  else if (User.loggedIn && Util.equal(choice, "show", "transactions", "5.", "5", "s", "st", "t")) {
+            Transaction t = new Transaction();
+            t.getUserTransactions(User.userId);
+            System.out.println("\nPress enter to return to menu");
+            try {
+                System.in.read();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            browse();
+        }
         else {
             System.out.println("Um.... I don't understand that choice. Please try again.");
             try {
@@ -125,7 +138,7 @@ class Welcome {
         }
     }
 
-    private static void drawLine() {
+    public static void drawLine() {
         System.out.print(AnsiColours.RED);
         for(int i = 0; i < 160; i++) {
             System.out.print("*");

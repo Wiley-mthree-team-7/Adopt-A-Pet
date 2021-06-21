@@ -5,7 +5,10 @@
  *
  */
 public class User {
-    protected String name;
+	public static int userId = -1;
+	public static boolean loggedIn = false;
+    
+	protected String name;
     protected String location;
     protected int age;
     protected long phNo;
@@ -22,6 +25,12 @@ public class User {
         this.salary = salary;
         this.username = username;
         this.password = password;
+    }
+    
+    public static void setUserId(int user_id)
+    {
+    	userId = user_id;
+    	loggedIn = true;
     }
 
     //Getters and Setters
