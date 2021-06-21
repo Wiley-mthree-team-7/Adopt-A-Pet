@@ -53,7 +53,9 @@ class Welcome {
         System.out.println("Which pet would you like to browse first?");
         System.out.println("1. Dogs");
         System.out.println("2. Cats");
-        System.out.println("3. Login");
+        if (!User.loggedIn) {
+            System.out.println("3. Login");
+        } else System.out.println("3. Logout");
         System.out.println("4. Register");
         if (User.loggedIn) {
             System.out.println("5. Show Transactions");
@@ -72,13 +74,21 @@ class Welcome {
             Thread.sleep(2500);            
             printPets("cats.txt");
             browse();
-        } else if(Util.equal(choice, "login", "3", "3.", "l")) {
+        } else if(!User.loggedIn && Util.equal(choice, "login", "3", "3.", "l")) {
             String u = Login.login();
             if (u != null) System.out.println(AnsiColours.GREEN + "Welcome back, " + u + "!");
             else System.out.println(AnsiColours.RED + "Unable to login :(");
             Thread.sleep(4000);
             browse();
-        } else if(Util.equal(choice, "register", "4", "4.", "r")) {
+        }else if (User.loggedIn && Util.equal(choice, "logout", "3", "3.", "l")) {
+            User.loggedIn = false;
+            User.userId = -1;
+            AddToCart.empty();
+            System.out.println(AnsiColours.GREEN + "Successfully Logged Out"+ AnsiColours.RESET);
+            Thread.sleep(3000);
+            browse();
+        }
+        else if(Util.equal(choice, "register", "4", "4.", "r")) {
             User u = Register.newUser();
             if (u != null) 
                 System.out.println(AnsiColours.GREEN+ "User " + u.getName() + " successfully registered!");

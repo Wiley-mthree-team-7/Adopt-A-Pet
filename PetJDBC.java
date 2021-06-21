@@ -7,6 +7,14 @@ class PetJDBC {
     private static final String user = "root";
     private static final String password = "password";
 
+    public static int petId(String name, String breed) throws Exception{
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement st = conn.createStatement();
+            String query = "SELECT * FROM Pet where name = '" + name + "' and breed = '" + breed + "'";
+            ResultSet rs = st.executeQuery(query);
+            if (rs.next()) return rs.getInt(1);
+            else return -1;
+    }
     public static void printTable() {
         Welcome.drawLine();
         try {
@@ -28,6 +36,8 @@ class PetJDBC {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-    }   
+    }
+    public static void main(String[] args) throws Exception{
+        System.out.println(petId("Boots", "American_Shorthair"));
+    }
 }
